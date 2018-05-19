@@ -43,4 +43,33 @@ public class SortImpl {
 		// 整列の完了したListを返却します。
 		return inputList;
 	}
+
+	/**
+	 * 単純交換法(バブルソート)のビジネスロジックです.
+	 * i : 比較する要素のループカウンタ.
+	 * k : 整列済み範囲のループカウンタ.
+	 * @param inputList
+	 * @return inputList
+	 */
+	public static List<Integer> simpleExchange(List<Integer> inputList) {
+		for (int k = 0; k < inputList.size(); k++) {
+			for (int i = inputList.size()-1; i >= 0; i--) {
+				// 比較要素が、整列済み範囲とかぶるようになったら、ループを抜けます.
+				if (i > k) {
+					// 左側の数字の方が小さい場合、隣り合う数字を交換します.
+					if (inputList.get(i - 1) > inputList.get(i)) {
+						// 一時的にi番目の値を保持します.
+						int w = inputList.get(i);
+						// i番目にi-1番目の値を代入します.
+						inputList.set(i, inputList.get(i - 1));
+						// i-1番目にi番目の値を代入します.
+						inputList.set(i - 1, w);
+					}
+				}else {
+					break;
+				}
+			}
+		}
+		return inputList;
+	}
 }

@@ -9,6 +9,22 @@ import java.util.List;
  *
  */
 public class SearchImpl {
+	
+	/**
+	 * 線形探索法のビジネスロジックです.
+	 * @param inputList
+	 * @param target
+	 * @return
+	 */
+	public static boolean linearSearch(List<Integer> inputList, int target) {
+		// 先頭から、探索したい値とマッチするか確認して、マッチするものがあればtrueを返却します.
+		for(int input : inputList) {
+			if(input == target) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * 二分探索法のビジネスロジックです.特定の値が存在するかどうかを検索します.
@@ -54,9 +70,20 @@ public class SearchImpl {
 		for (int i = 0; i < inputList.size(); i++) {
 			// コピー先Listのk番目が0(初期化されたまま何もない)ならば、元のi番目の値を代入します.この条件で、衝突（シノニム）を確認します.
 			// ハッシュ関数（コピー先配列のINDEXを決定する関数）を定義します.5で割ったあまりの数をハッシュ値とします.
-			for(int k = inputList.get(i) % 5; k < inputList.size(); k++) {
-				if(srchList.get(k) == null) {
-					srchList.set(k, inputList.get(i));
+			int k = inputList.get(i) % 5;
+			// 入力元Listの2倍までの大きさでループを行います.値を代入したらkのループを抜けます.
+			int max = srchList.size();
+			while(k < inputList.size() * 2) {
+				// ループ一回目で、要素が一つもなければ値を直接代入します。
+				if(max == 0) {
+					srchList.add(k, inputList.get(i));
+					break;
+				// kがコピー先ListのINDEX範囲内にある∧INDEXに対応する値がnullの場合、値を格納します.
+				}else if(k > srchList.size()) {
+					srchList.add(k, inputList.get(i));
+				// 値をコピーできなかった場合、ハッシュ値の計算元を一つ進めます.
+				}else{
+					k = (k + 1) % 5;
 				}
 			}
 		}
