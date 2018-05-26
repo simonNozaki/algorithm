@@ -9,23 +9,33 @@ import Abstracts.LogicUtils;
  * @author s.nozaki
  *
  */
-public class SearchMeisuringImpl{
+public class SearchMeisuringImpl {
 
 	// 与えられた件数の連想配列を、バイナリサーチで処理する時間を計測するメソッドです.取得結果の単位はmsです.
-	public static float meisureBinarySearch(int num, int target){
+	public static float meisureBinarySearch(int num, int target) {
 		List<Integer> in = LogicUtils.generateInput(num);
 		long start = System.nanoTime();
-		boolean result1 = SearchImpl.binarySearch(in, target);
+		SearchImpl.binarySearch(in, target);
 		long end = System.nanoTime();
 		float result = (end - start) / 1000000f;
 		return result;
 	}
-	
+
 	// 与えられた件数の連想配列を、リニアサーチで処理する時間を計測するメソッドです.取得結果の単位はmsです.
-	public static float meisureLinearSearch(int num, int target){
+	public static float meisureLinearSearch(int num, int target) {
 		List<Integer> in = LogicUtils.generateInput(num);
 		long start = System.nanoTime();
-		boolean result1 = SearchImpl.linearSearch(in, target);
+		SearchImpl.linearSearch(in, target);
+		long end = System.nanoTime();
+		float result = (end - start) / 1000000f;
+		return result;
+	}
+
+	// 与えられた件数の連想配列を、ハッシュサーチで処理する時間を計測するメソッドです.取得結果の単位はmsです.
+	public static float meisureHashSearch(int num, int target) {
+		List<Integer> in = LogicUtils.generateInput(num);
+		long start = System.nanoTime();
+		  SearchImpl.hashSearch(in, target);
 		long end = System.nanoTime();
 		float result = (end - start) / 1000000f;
 		return result;

@@ -35,5 +35,6 @@
 	<classpathentry kind="lib" path="C:/Users/s.nozaki/JavaLibrary/Jackson/jackson-annotations-2.9.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/s.nozaki/JavaLibrary/Jackson/jackson-core-2.9.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/s.nozaki/JavaLibrary/Jackson/jackson-databind-2.9.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

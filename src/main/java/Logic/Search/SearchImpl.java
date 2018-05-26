@@ -64,24 +64,24 @@ public class SearchImpl {
 	 * @return
 	 */
 	public static boolean hashSearch(List<Integer> inputList, int target) {
-		// コピー先（探索するときに利用する配列）を先に用意します.
+		// コピー先（探索するときに利用する配列）を先に用意します.2倍の大きさで、初期値0で初期化しておきます.
 		List<Integer> srchList = new ArrayList<>();
+		for(int i = 0; i<inputList.size() * 2; i++) {
+			srchList.add(0);
+		}
+		
 		// 入力されたListのループカウンタです.コピー先Listを生成します.
 		for (int i = 0; i < inputList.size(); i++) {
 			// コピー先Listのk番目が0(初期化されたまま何もない)ならば、元のi番目の値を代入します.この条件で、衝突（シノニム）を確認します.
 			// ハッシュ関数（コピー先配列のINDEXを決定する関数）を定義します.5で割ったあまりの数をハッシュ値とします.
 			int k = inputList.get(i) % 5;
-			// 入力元Listの2倍までの大きさでループを行います.値を代入したらkのループを抜けます.
-			int max = srchList.size();
+			// 入力元Listの2倍までの大きさでループを行います.元の配列の値を代入できたらkのループを抜けます.
 			while(k < inputList.size() * 2) {
-				// ループ一回目で、要素が一つもなければ値を直接代入します。
-				if(max == 0) {
+				// コピー先Listのk番目の値が初期値(=0)ならば、値を代入します.
+				if(srchList.get(k) == 0) {
 					srchList.add(k, inputList.get(i));
 					break;
-				// kがコピー先ListのINDEX範囲内にある∧INDEXに対応する値がnullの場合、値を格納します.
-				}else if(k > srchList.size()) {
-					srchList.add(k, inputList.get(i));
-				// 値をコピーできなかった場合、ハッシュ値の計算元を一つ進めます.
+				// 値をコピーできなかった場合(シノニムが発生した場合)、ハッシュ値の計算元を一つ進めて次のループに移ります.
 				}else{
 					k = (k + 1) % 5;
 				}
@@ -89,15 +89,13 @@ public class SearchImpl {
 		}
 		
 		// 探索する値が、コピー先List内でnullでない（初期値でない = 値がコピーされている）∧探索したい値であるとき、trueを返却します.
-		int h = target % 5;
-		for(h = target % 5; h < srchList.size(); h ++) {
-			if(srchList.get(h) == target) {
+		for(int hashVal = target % 5; hashVal < srchList.size(); hashVal ++) {
+			if(srchList.get(hashVal) == target) {
 				return true;
 			}else{
-				h = (h + 1) % 5;
+				hashVal = (hashVal + 1) % 5;
 			}
 		}
-		
 		return false;
 	}
 }
